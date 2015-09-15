@@ -16,36 +16,47 @@ public class Dice extends PApplet {
 
 public void setup()
 {
+	
 	size(400,400);
 	noLoop();
 }
 public void draw()
 {
-	Die hello = new Die (50,50);
-	hello.show();
-	//hello.roll();
-	Die bye = new Die (100,100);
-	bye.show();
+	background(127);
+	int totals = 0;
+	for (int y = 15; y <= 350; y = y +75)
+	{
+		for (int x = 25; x <= 350; x = x + 75)
+		{
+			Die hello = new Die (x,y);
+			hello.show();
+			hello.roll();
+			if (hello.numNum >= 0)
+			{
+				totals = totals + hello.numNum;
+			}
+		}
+	}
+	text("Total points: " + totals,50,380);
 }
 public void mousePressed()
 {
 	redraw();
 }
-class Die //models one single dice cube
+
+
+class Die
 {
-	//variable declarations here
 	int myX, myY;
 	Die(int x, int y) //constructor
 	{
-		//variable initializations here
 		myX = x;
 		myY = y;
-		
-
 	}
+	int numNum = (int)(Math.random()*6)+1;
 	public void roll()
 	{
-		int numNum = (int)(Math.random()*6)+1;
+		
 		stroke(0);
 		strokeWeight(10);
 		if(numNum == 1)
@@ -93,17 +104,17 @@ class Die //models one single dice cube
 			point(myX+13,myY+37);
 			point(myX+36,myY+37);
 		}
-		
-		
 	}
 	public void show()
 	{
 		noStroke();
 		rect(myX,myY,50,50,10);
-		roll();
+		//roll();
 		
 	}
 }
+
+
   static public void main(String[] passedArgs) {
     String[] appletArgs = new String[] { "Dice" };
     if (passedArgs != null) {
